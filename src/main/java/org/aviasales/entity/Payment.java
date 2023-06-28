@@ -6,6 +6,6 @@ public class Payment {
     private int paymentId;
     private int paymentCardId;
     private PaymentStatus paymentStatus;
-    private LocalDateTime paymentTime;
+    private LocalDateTime paymentDateTime;
     private int reservationPaymentId;
 }
