@@ -10,18 +10,33 @@ public class FlightManagement {
     private Flight flightTo;
     private Flight flightFrom;
 
-    public void addFlight(Flight flight) {
-        // Add the flight to the list
+    public FlightManagement(long flightManagementId, Flight flightTo, Flight flightFrom) {
+        this.flightManagementId = flightManagementId;
+        this.flightTo = flightTo;
+        this.flightFrom = flightFrom;
     }
 
-    public void removeFlight(Flight flight) {
-        // Remove the flight from the list
+    public long getFlightManagementId() {
+        return flightManagementId;
     }
 
-    public List<Flight> getFlights() {
-        // Return the list of flights
-        return null;
+    public void setFlightManagementId(long flightManagementId) {
+        this.flightManagementId = flightManagementId;
     }
 
-    // Other methods for managing flights (e.g., updateFlight, getFlightById, etc.)
+    public Flight getFlightTo() {
+        return flightTo;
+    }
+
+    public void setFlightTo(Flight flightTo) {
+        this.flightTo = flightTo;
+    }
+
+    public Flight getFlightFrom() {
+        return flightFrom;
+    }
+
+    public void setFlightFrom(Flight flightFrom) {
+        this.flightFrom = flightFrom;
+    }
 }
