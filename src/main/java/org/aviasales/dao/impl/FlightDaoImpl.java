@@ -23,7 +23,7 @@ public class FlightDaoImpl extends AbstractDao<Flight> implements FlightDao {
 
     @Override
     public List<Flight> getAll(int size, int offset) {
-        return null;
+        return getJdbcTemplate().query("SELECT * FROM flight limit ? offset ?;", BeanPropertyRowMapper.newInstance(Flight.class), size, offset);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class FlightDaoImpl extends AbstractDao<Flight> implements FlightDao {
             stmt.setString(3, flight.getDestination());
             stmt.setTimestamp(4, Timestamp.valueOf(flight.getDepartureDateTime()));
             stmt.setTimestamp(5, Timestamp.valueOf(flight.getArrivalDateTime()));
-            stmt.setString(6, flight.getFlightDuration());
+            stmt.setString(6, flight.getFlightDuration().toString());
             return stmt;
         }, keyHolder);
         if(null != findById(Objects.requireNonNull(keyHolder.getKey()).longValue())){
@@ -71,5 +71,15 @@ public class FlightDaoImpl extends AbstractDao<Flight> implements FlightDao {
                 IncorrectResultSizeDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public List<Flight> getFlightList(int size, int offset) {
+        return null;
+    }
+
+    @Override
+    public Integer countFlight() {
+        return getJdbcTemplate().queryForObject("select count(*) from flight", Integer.class);
     }
 }

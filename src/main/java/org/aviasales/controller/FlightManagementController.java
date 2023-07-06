@@ -1,13 +1,12 @@
 package org.aviasales.controller;
 
 import org.aviasales.dto.FlightManagementDTO;
+import org.aviasales.entity.FlightManagement;
+import org.aviasales.entity.Page;
 import org.aviasales.service.FlightManagementService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Logger;
 
@@ -25,12 +24,24 @@ public class FlightManagementController {
     @PostMapping("/create-flight")
     public ResponseEntity<String> createBottle(@RequestBody FlightManagementDTO createFlightDTO) {
         try {
-            flightManagementService.createFlight(createFlightDTO);
+            flightManagementService.createFlightManagement(createFlightDTO);
             return new ResponseEntity<>("Successful Created", HttpStatus.CREATED);
         } catch (Exception e) {
             logger.info(e.toString());
             return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/create-flight/{page}/{size}")
+    public ResponseEntity<Page<FlightManagement>> createBottle(@PathVariable int page, @PathVariable int size) {
+        try {
+            Page<FlightManagement> flightManagementPage = flightManagementService.getListFlightManagement(page, size);
+            return new ResponseEntity<>(flightManagementPage, HttpStatus.CREATED);
+        } catch (Exception e) {
+            logger.info(e.toString());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }

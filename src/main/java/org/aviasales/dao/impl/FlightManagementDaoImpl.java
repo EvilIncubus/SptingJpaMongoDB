@@ -22,7 +22,7 @@ public class FlightManagementDaoImpl extends AbstractDao<FlightManagement> imple
 
     @Override
     public List<FlightManagement> getAll(int size, int offset) {
-        return null;
+        return getJdbcTemplate().query("SELECT * FROM flight_management limit ? offset ?;", BeanPropertyRowMapper.newInstance(FlightManagement.class), size, offset);
     }
 
     @Override
@@ -59,5 +59,15 @@ public class FlightManagementDaoImpl extends AbstractDao<FlightManagement> imple
                 IncorrectResultSizeDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public List<FlightManagement> getFlightManagementList(int size, int offset) {
+        return null;
+    }
+
+    @Override
+    public Integer countFlightManagement() {
+        return getJdbcTemplate().queryForObject("select count(*) from flight_management", Integer.class);
     }
 }

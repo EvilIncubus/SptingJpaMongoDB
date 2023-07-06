@@ -17,14 +17,14 @@ public class Flight {
     private String departureLocation;                     // Departure Location
     private String destination;
     @JsonFormat
-            (shape = JsonFormat.Shape.STRING, pattern = ("dd:MM:yyyy hh:mm:ss"))
+            (shape = JsonFormat.Shape.STRING, pattern = ("yyyy-MM-dd hh:mm:ss"))
     private LocalDateTime departureDateTime;
     @JsonFormat
-            (shape = JsonFormat.Shape.STRING, pattern = ("dd:MM:yyyy hh:mm:ss"))
+            (shape = JsonFormat.Shape.STRING, pattern = ("yyyy-MM-dd hh:mm:ss"))
     private LocalDateTime arrivalDateTime;
-    private String flightDuration;                      // Flight duration
+    private Duration flightDuration;                      // Flight duration
 
-    public Flight(long flightId, String flightNumber, Airplane airplane, List<Seat> seats, String departureLocation, String destination, LocalDateTime departureDateTime, LocalDateTime arrivalDateTime, String flightDuration) {
+    public Flight(long flightId, String flightNumber, Airplane airplane, List<Seat> seats, String departureLocation, String destination, LocalDateTime departureDateTime, LocalDateTime arrivalDateTime, Duration flightDuration) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.airplane = airplane;
@@ -103,11 +103,11 @@ public class Flight {
         this.arrivalDateTime = arrivalDateTime;
     }
 
-    public String getFlightDuration() {
+    public Duration getFlightDuration() {
         return flightDuration;
     }
 
-    public void setFlightDuration(String flightDuration) {
+    public void setFlightDuration(Duration flightDuration) {
         this.flightDuration = flightDuration;
     }
 }

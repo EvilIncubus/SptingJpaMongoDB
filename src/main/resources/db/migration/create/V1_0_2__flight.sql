@@ -6,7 +6,7 @@ CREATE TABLE aviasales_db.flight
     destination         varchar(100)          NULL,
     departure_date_time DATETIME              NULL,
     arrival_date_time   DATETIME              NULL,
-    duration_id         BIGINT                NULL,
+    duration_id         VARCHAR(20)           NULL,
     CONSTRAINT flight PRIMARY KEY (flight_id)
 )
     ENGINE = InnoDB
