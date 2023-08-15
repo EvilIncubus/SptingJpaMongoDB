@@ -1,9 +1,9 @@
 CREATE TABLE aviasales_db.flight_management
 (
     flight_management_id BIGINT auto_increment NOT NULL,
-    flight_from_id       BIGINT                NULL,
-    fright_to_id         BIGINT                NULL,
-    CONSTRAINT flight PRIMARY KEY (flight_management_id)
+    origin_flight_id       BIGINT                NULL,
+    destination_flight_id         BIGINT                NULL,
+    CONSTRAINT flight_management PRIMARY KEY (flight_management_id)
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4

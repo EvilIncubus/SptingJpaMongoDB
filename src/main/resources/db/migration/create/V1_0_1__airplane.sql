@@ -4,7 +4,7 @@ CREATE TABLE aviasales_db.airplane
     plane_number    VARCHAR(20)           NULL,
     airline_id      BIGINT                NULL,
     number_of_seats INT                   NULL,
-    CONSTRAINT flight PRIMARY KEY (airplane_id)
+    CONSTRAINT airplane PRIMARY KEY (airplane_id)
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4

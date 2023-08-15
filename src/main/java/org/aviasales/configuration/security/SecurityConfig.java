@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -36,9 +37,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/rest/api/auth/**").authorizeHttpRequests((auth) -> auth.requestMatchers("/rest/api/auth/**").
-                        permitAll())
-                .securityMatcher("/rest/api/**").authorizeHttpRequests((auth) -> auth.requestMatchers("/rest/api/auth/**").
+        http
+                .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
+                .securityMatcher("/rest/api/auth/**").authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/rest/api/auth/**").
+                        permitAll();
+                    auth.requestMatchers("/rest/api/airport/**");
+                        })
+                .securityMatcher("/rest/api/**").authorizeHttpRequests(auth -> auth.requestMatchers("/rest/api/**").
                         permitAll().anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

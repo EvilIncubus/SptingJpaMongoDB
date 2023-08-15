@@ -6,6 +6,7 @@ public class Seat {
     private int placeNumber;
     private boolean availablePlace;
     private double priceSeat;
+    //TODO remove flightId
     private long flightId;
 
     public Seat(long seatId, SeatType seatType, int placeNumber, boolean availablePlace, double priceSeat, long flightId) {

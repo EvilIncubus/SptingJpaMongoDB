@@ -30,7 +30,7 @@ public class SeatDaoImpl extends AbstractDao<Seat> implements SeatDao {
     public Seat create(Seat seat) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        String sql = "INSERT INTO seat (seatType, place_number, available_place, price_seat, flight_id) VALUES(?,?,?,?,?);";
+        String sql = "INSERT INTO seat (seat_type, place_number, available_place, price_seat, flight_id) VALUES(?,?,?,?,?);";
 
         getJdbcTemplate().update(con -> {
             PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

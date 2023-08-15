@@ -4,7 +4,7 @@ CREATE TABLE aviasales_db.user
     email        VARCHAR(50)           NULL,
     password     VARCHAR(100)          NULL,
     created_date DATETIME              NULL,
-    CONSTRAINT seat PRIMARY KEY (user_id)
+    CONSTRAINT user PRIMARY KEY (user_id)
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4

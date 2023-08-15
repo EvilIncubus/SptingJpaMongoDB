@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 @RequestMapping("/rest/api/auth")
 public class AuthController {
     private final AuthenticationService authenticationService;
-    private final static Logger logger = Logger.getLogger(AuthController.class.getName());
+    private static final Logger logger = Logger.getLogger(AuthController.class.getName());
 
     public AuthController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;

@@ -1,5 +1,6 @@
 package org.aviasales.service.impl;
 
+import org.aviasales.dao.AirplaneDao;
 import org.aviasales.dao.FlightDao;
 import org.aviasales.dao.FlightManagementDao;
 import org.aviasales.dao.SeatDao;
@@ -17,36 +18,37 @@ public class FlightManagementServiceImpl implements FlightManagementService {
     private final FlightManagementDao flightManagementDao;
     private final FlightDao flightDao;
     private final SeatDao seatDao;
+    private final AirplaneDao airplaneDao;
 
-    public FlightManagementServiceImpl(FlightManagementDao flightManagementDao, FlightDao flightDao, SeatDao seatDao) {
+    public FlightManagementServiceImpl(FlightManagementDao flightManagementDao, FlightDao flightDao, SeatDao seatDao, AirplaneDao airplaneDao) {
         this.flightManagementDao = flightManagementDao;
         this.flightDao = flightDao;
         this.seatDao = seatDao;
+        this.airplaneDao = airplaneDao;
     }
-
 
     @Override
     public void createFlightManagement(FlightManagementDTO flightManagementDTO) {
         FlightManagement flightManagement = flightManagementDTO.getFlightManagement();
 
-        List<Seat> seatsFrom = generateSeats(flightManagement.getFlightFrom(), flightManagementDTO.getEconomySeats(), flightManagementDTO.getPriceEconomySeat(), SeatType.ECONOMY);
-        seatsFrom.addAll(generateSeats(flightManagement.getFlightFrom(), flightManagementDTO.getBusinessSeats(), flightManagementDTO.getPriceBusinessSeat(), SeatType.BUSINESS));
-        flightManagement.getFlightFrom().setSeats(seatsFrom);
+        List<Seat> seatsFrom = generateSeats(flightManagement.getDestinationFlight(), flightManagementDTO.getEconomySeats(), flightManagementDTO.getPriceEconomySeat(), SeatType.ECONOMY);
+        seatsFrom.addAll(generateSeats(flightManagement.getDestinationFlight(), flightManagementDTO.getBusinessSeats(), flightManagementDTO.getPriceBusinessSeat(), SeatType.BUSINESS));
+        flightManagement.getDestinationFlight().setSeats(seatsFrom);
 
-        List<Seat> seatsTo = generateSeats(flightManagement.getFlightTo(), flightManagementDTO.getEconomySeats(), flightManagementDTO.getPriceEconomySeat(), SeatType.ECONOMY);
-        seatsTo.addAll(generateSeats(flightManagement.getFlightTo(), flightManagementDTO.getBusinessSeats(), flightManagementDTO.getPriceBusinessSeat(), SeatType.BUSINESS));
-        flightManagement.getFlightTo().setSeats(seatsTo);
+        List<Seat> seatsTo = generateSeats(flightManagement.getOriginFlight(), flightManagementDTO.getEconomySeats(), flightManagementDTO.getPriceEconomySeat(), SeatType.ECONOMY);
+        seatsTo.addAll(generateSeats(flightManagement.getOriginFlight(), flightManagementDTO.getBusinessSeats(), flightManagementDTO.getPriceBusinessSeat(), SeatType.BUSINESS));
+        flightManagement.getOriginFlight().setSeats(seatsTo);
 
         try {
-            flightManagement.setFlightFrom(flightDao.create(flightManagement.getFlightFrom()));
+            flightManagement.setDestinationFlight(flightDao.create(flightManagement.getDestinationFlight()));
 
 
-            flightManagement.setFlightTo(flightDao.create(flightManagement.getFlightTo()));
+            flightManagement.setOriginFlight(flightDao.create(flightManagement.getOriginFlight()));
 
-            for (Seat seat : flightManagement.getFlightFrom().getSeats()) {
+            for (Seat seat : flightManagement.getDestinationFlight().getSeats()) {
                 seatDao.create(seat);
             }
-            for (Seat seat : flightManagement.getFlightTo().getSeats()) {
+            for (Seat seat : flightManagement.getOriginFlight().getSeats()) {
                 seatDao.create(seat);
             }
             flightManagementDao.create(flightManagement);
@@ -58,6 +60,11 @@ public class FlightManagementServiceImpl implements FlightManagementService {
     @Override
     public Page<FlightManagement> getListFlightManagement(int page, int size) {
         return new Page<>(flightManagementDao.getAll(size, (page - 1) * size), flightManagementDao.countFlightManagement(), page, size);
+    }
+
+    @Override
+    public Page<Airplane> getAirplanes() {
+        return new Page<>(airplaneDao.getAll(10, 0), airplaneDao.countFlightManagement(), 0, 10);
     }
 
     private List<Seat> generateSeats(Flight flight, int amountSeats, double priceSeats, SeatType type){

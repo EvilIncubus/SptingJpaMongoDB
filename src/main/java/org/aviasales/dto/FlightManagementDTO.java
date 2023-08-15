@@ -3,7 +3,6 @@ package org.aviasales.dto;
 import org.aviasales.entity.FlightManagement;
 
 public class FlightManagementDTO {
-
     private FlightManagement flightManagement;
     private int businessSeats;
     private int economySeats;
@@ -59,5 +58,14 @@ public class FlightManagementDTO {
 
     public void setPriceEconomySeat(double priceEconomySeat) {
         this.priceEconomySeat = priceEconomySeat;
+    }
+
+    @Override
+    public String toString() {
+        return "flightManagementDTO{" +
+                "flightTo_flightNumber =" + flightManagement.getOriginFlight().getFlightNumber() +
+                ",flightFrom_flightNumber =" + flightManagement.getDestinationFlight().getFlightNumber() +
+                ", businessSeats =" + businessSeats +
+                '}';
     }
 }

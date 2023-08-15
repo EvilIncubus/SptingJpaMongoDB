@@ -4,9 +4,10 @@ CREATE TABLE aviasales_db.profile
     user_id       BIGINT                NULL,
     first_name    VARCHAR(30)           NULL,
     last_name     VARCHAR(30)           NULL,
+    phone           VARCHAR(20)            NULL,
     date_of_birth DATE                  NULL,
     address       VARCHAR(50)           NULL,
-    CONSTRAINT seat PRIMARY KEY (profile_id)
+    CONSTRAINT profile PRIMARY KEY (profile_id)
 )
     ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4

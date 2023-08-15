@@ -5,14 +5,14 @@ package org.aviasales.entity;
  */
 public class Airline {
     private long airlineId;             // Airline Id
-    private String name_company;                // Airline Name
-    private String code_company;                // Airline Code
+    private String nameCompany;                // Airline Name
+    private String codeCompany;                // Airline Code
     private String description;         // Airline Description
 
-    public Airline(long airlineId, String name_company, String code_company, String description) {
+    public Airline(long airlineId, String nameCompany, String codeCompany, String description) {
         this.airlineId = airlineId;
-        this.name_company = name_company;
-        this.code_company = code_company;
+        this.nameCompany = nameCompany;
+        this.codeCompany = codeCompany;
         this.description = description;
     }
 
@@ -27,20 +27,20 @@ public class Airline {
         this.airlineId = airlineId;
     }
 
-    public String getName_company() {
-        return name_company;
+    public String getNameCompany() {
+        return nameCompany;
     }
 
-    public void setName_company(String name_company) {
-        this.name_company = name_company;
+    public void setNameCompany(String nameCompany) {
+        this.nameCompany = nameCompany;
     }
 
-    public String getCode_company() {
-        return code_company;
+    public String getCodeCompany() {
+        return codeCompany;
     }
 
-    public void setCode_company(String code_company) {
-        this.code_company = code_company;
+    public void setCodeCompany(String codeCompany) {
+        this.codeCompany = codeCompany;
     }
 
     public String getDescription() {

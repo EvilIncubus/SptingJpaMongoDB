@@ -1,19 +1,20 @@
 package org.aviasales.entity;
 
-import java.util.List;
-
 /**
  * This class represent entity of FlightManagement for Admin panel
  */
 public class FlightManagement {
     private long flightManagementId;
-    private Flight flightTo;
-    private Flight flightFrom;
+    private Flight originFlight;
+    private Flight destinationFlight;
 
-    public FlightManagement(long flightManagementId, Flight flightTo, Flight flightFrom) {
+    public FlightManagement(long flightManagementId, Flight originFlight, Flight destinationFlight) {
         this.flightManagementId = flightManagementId;
-        this.flightTo = flightTo;
-        this.flightFrom = flightFrom;
+        this.originFlight = originFlight;
+        this.destinationFlight = destinationFlight;
+    }
+
+    public FlightManagement() {
     }
 
     public long getFlightManagementId() {
@@ -24,19 +25,19 @@ public class FlightManagement {
         this.flightManagementId = flightManagementId;
     }
 
-    public Flight getFlightTo() {
-        return flightTo;
+    public Flight getOriginFlight() {
+        return originFlight;
     }
 
-    public void setFlightTo(Flight flightTo) {
-        this.flightTo = flightTo;
+    public void setOriginFlight(Flight originFlight) {
+        this.originFlight = originFlight;
     }
 
-    public Flight getFlightFrom() {
-        return flightFrom;
+    public Flight getDestinationFlight() {
+        return destinationFlight;
     }
 
-    public void setFlightFrom(Flight flightFrom) {
-        this.flightFrom = flightFrom;
+    public void setDestinationFlight(Flight destinationFlight) {
+        this.destinationFlight = destinationFlight;
     }
 }

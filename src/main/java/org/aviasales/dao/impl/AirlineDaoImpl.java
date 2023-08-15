@@ -33,8 +33,8 @@ public class AirlineDaoImpl extends AbstractDao<Airline> implements AirlineDao {
 
         getJdbcTemplate().update(con -> {
             PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, airline.getName_company());
-            stmt.setString(2, airline.getCode_company());
+            stmt.setString(1, airline.getNameCompany());
+            stmt.setString(2, airline.getCodeCompany());
             stmt.setString(3, airline.getDescription());
             return stmt;
         }, keyHolder);

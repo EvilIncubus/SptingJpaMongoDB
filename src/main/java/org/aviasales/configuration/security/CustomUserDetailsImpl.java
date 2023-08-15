@@ -16,7 +16,6 @@ public class CustomUserDetailsImpl implements UserDetails {
     private String lastName;
     private String address;
     private String phone;
-    private String company;
     private final Collection<? extends GrantedAuthority> authorities;
 
     public CustomUserDetailsImpl(String email, String password,String firstName, String lastName, String phone, Collection<? extends GrantedAuthority> authorities) {

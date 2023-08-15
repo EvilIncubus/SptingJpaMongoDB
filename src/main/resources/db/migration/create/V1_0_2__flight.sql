@@ -1,6 +1,7 @@
 CREATE TABLE aviasales_db.flight
 (
     flight_id           BIGINT auto_increment NOT NULL,
+    flight_number       varchar(20)           NULL,
     airplane_id         BIGINT                NULL,
     departure_location  varchar(100)          NULL,
     destination         varchar(100)          NULL,
