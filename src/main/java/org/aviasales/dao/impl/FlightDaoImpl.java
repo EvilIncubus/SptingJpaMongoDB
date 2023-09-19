@@ -1,7 +1,9 @@
 package org.aviasales.dao.impl;
 
 import org.aviasales.dao.FlightDao;
+import org.aviasales.dao.rowmapper.FlightDateRowMapper;
 import org.aviasales.dao.rowmapper.FlightRowMapper;
+import org.aviasales.dto.FlightSearchDTO;
 import org.aviasales.entity.Flight;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -88,15 +90,26 @@ public class FlightDaoImpl extends AbstractDao<Flight> implements FlightDao {
 
     @Override
     public List<LocalDateTime> getListOfDateForFlights(String location) {
-        return getJdbcTemplate().query("SELECT departure_date_time  FROM flight f WHERE departure_location = ?;",
-                new FlightRowMapper(),
+        return getJdbcTemplate().query("SELECT f.departure_date_time  FROM flight f WHERE f.departure_location = ?;",
+                new FlightDateRowMapper(),
                 location);
     }
 
     @Override
     public List<Flight> getListOfFlightWithDepartureLocation(String location) {
-        return getJdbcTemplate().query("SELECT * FROM flight f WHERE departure_location = ?;",
+        return getJdbcTemplate().query("SELECT * FROM flight f WHERE f.departure_location = ?;",
                 BeanPropertyRowMapper.newInstance(Flight.class),
                 location);
+    }
+
+    @Override
+    public List<Flight> getFilterFlightList(FlightSearchDTO flightSearchDTO, int size, int page) {
+        return getJdbcTemplate().query("SELECT f.flight_id, f.flight_number, a.airplane_id, a2.airline_id, a2.description, a2.code_company, a2.name_company, a.number_of_seats, a.plane_number, f.departure_location, f.destination, f.departure_date_time, f.arrival_date_time, f.duration_id  FROM flight f inner join airplane a on f.airplane_id = a.airplane_id inner JOIN airline a2 on a.airline_id = a2.airline_id Where f.departure_location = '"+ flightSearchDTO.getFlightFrom() +"' and f.destination = '"+ flightSearchDTO.getFlightTo() +"' and f.departure_date_time like '"+ flightSearchDTO.getDateToFlight() +"%' limit "+ size +" offset "+ page +"",
+                new FlightRowMapper());
+    }
+
+    @Override
+    public Integer countFilterFlight(FlightSearchDTO flightSearchDTO) {
+        return getJdbcTemplate().queryForObject("select count(*) from flight f Where f.departure_location = '"+ flightSearchDTO.getFlightFrom() +"' and f.destination = '"+ flightSearchDTO.getFlightTo() +"' and f.departure_date_time like '"+ flightSearchDTO.getDateToFlight() +"%'", Integer.class);
     }
 }

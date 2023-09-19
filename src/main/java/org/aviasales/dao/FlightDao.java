@@ -1,5 +1,6 @@
 package org.aviasales.dao;
 
+import org.aviasales.dto.FlightSearchDTO;
 import org.aviasales.entity.Flight;
 
 import java.time.LocalDateTime;
@@ -10,4 +11,8 @@ public interface FlightDao extends Dao<Flight>{
     Integer countFlight();
     List<LocalDateTime> getListOfDateForFlights(String location);
     List<Flight> getListOfFlightWithDepartureLocation(String location);
+
+    List<Flight> getFilterFlightList(FlightSearchDTO flightSearchDTO, int size, int page);
+
+    Integer countFilterFlight(FlightSearchDTO flightSearchDTO);
 }

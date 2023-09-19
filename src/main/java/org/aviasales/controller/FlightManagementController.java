@@ -1,6 +1,5 @@
 package org.aviasales.controller;
 
-import jakarta.websocket.server.PathParam;
 import org.aviasales.dto.FlightManagementDTO;
 import org.aviasales.entity.Airplane;
 import org.aviasales.entity.FlightManagement;
@@ -10,11 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("/rest/api/flight")
+@RequestMapping("/rest/api/flight-manager")
 public class FlightManagementController {
 
     private final FlightManagementService flightManagementService;
